@@ -1,3 +1,5 @@
+import 'dart:math';
+
 import 'package:fl_chart/fl_chart.dart';
 import 'package:flutter/material.dart';
 import 'package:quiver/iterables.dart';
@@ -24,7 +26,7 @@ class GraphComponent extends StatelessWidget {
     return SingleChildScrollView(
       scrollDirection: Axis.horizontal,
       child: Container(
-        width: 10000,
+        width: _determineChartWidth(),
         padding: EdgeInsets.all(8),
         child: LineChart(
           LineChartData(
@@ -54,5 +56,15 @@ class GraphComponent extends StatelessWidget {
 
   _getRandomColor(){
     return Color((math.Random().nextDouble() * 0xFFFFFF).toInt()).withOpacity(1.0);
+  }
+  
+  _determineChartWidth() {
+    
+    double log10 = log(time.length) / ln10;
+    int roundedLog = log10.round();
+    num result = pow(10, roundedLog);
+
+    return result.toDouble();
+
   }
 }
