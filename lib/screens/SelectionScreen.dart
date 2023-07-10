@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
+import 'package:signal_reader/screens/GraphScreen.dart';
 
 class SelectionComponent extends StatelessWidget {
   final String selectedKey;
@@ -8,7 +9,10 @@ class SelectionComponent extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
+    return data.keys.contains("time") ? 
+    GraphScreen(selectedKey: selectedKey, data: data)
+    :    
+    Scaffold(
       appBar: AppBar(
         backgroundColor: Colors.blueAccent,
         title: Text(selectedKey),
@@ -33,5 +37,5 @@ class SelectionComponent extends StatelessWidget {
     );
      
   }
-  // push component to navigator?
+  
 }

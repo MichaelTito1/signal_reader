@@ -27,7 +27,7 @@ class MyApp extends StatelessWidget {
       ),
       routes: {
         '/':(context) => HomeScreen(),
-        '/graph':(context) => GraphScreen()
+        // '/graph':(context) => GraphScreen()
       },
       debugShowCheckedModeBanner: false,
     );

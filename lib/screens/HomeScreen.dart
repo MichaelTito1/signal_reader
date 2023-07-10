@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:signal_reader/components/SelectionComponent.dart';
+import 'package:signal_reader/screens/SelectionScreen.dart';
 import '../services/DatabaseService.dart';
 
 class HomeScreen extends StatefulWidget {

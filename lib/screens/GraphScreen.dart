@@ -1,15 +1,20 @@
 import 'package:flutter/material.dart';
 
-class GraphScreen extends StatefulWidget {
-  const GraphScreen({super.key});
+class GraphScreen extends StatelessWidget {
+  final String selectedKey;
+  final Map<dynamic, dynamic> data;
 
-  @override
-  State<GraphScreen> createState() => _GraphScreenState();
-}
+  const GraphScreen({super.key, required this.selectedKey, required this.data});
 
-class _GraphScreenState extends State<GraphScreen> {
   @override
   Widget build(BuildContext context) {
-    return const Placeholder();
+    return Scaffold(
+      appBar: AppBar(
+        backgroundColor: Colors.blueAccent,
+        title: Text(selectedKey),
+      ),
+      body: Container(),
+    );
   }
+  // display a graph ?
 }
