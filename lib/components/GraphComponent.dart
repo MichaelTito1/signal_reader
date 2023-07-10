@@ -1,6 +1,7 @@
 import 'package:fl_chart/fl_chart.dart';
 import 'package:flutter/material.dart';
 import 'package:quiver/iterables.dart';
+import 'dart:math' as math;
 
 class GraphComponent extends StatelessWidget {
   final List<num> time;
@@ -19,26 +20,39 @@ class GraphComponent extends StatelessWidget {
       }
       dataSpots.add(spots);
     }
-    // print("data[0]=${dataList[0]}");
 
-
-    return LineChart(
-      LineChartData(
-        // minX: time.first,
-        minX: 0,
-        // maxX: time.last,
-        lineBarsData: [
-          LineChartBarData(
-            spots: dataSpots[3],
-            color: Colors.red,
-            dotData: FlDotData(show: false)
-          ),
-          // LineChartBarData(
-          //   spots: dataSpots[1],
-          //   color: Colors.amber
-          // )
-        ]
-      )
+    return SingleChildScrollView(
+      scrollDirection: Axis.horizontal,
+      child: Container(
+        width: 10000,
+        padding: EdgeInsets.all(8),
+        child: LineChart(
+          LineChartData(
+            // minX: time.first,
+            minX: 0,
+            // maxX: time.last,
+            lineBarsData: _getLineChartData(dataSpots)
+          )
+        ),
+      ),
     );
+  }
+  
+  _getLineChartData(List<List<FlSpot>> dataSpots) {
+    List<LineChartBarData> lines = [];
+    for(var dataSpot in dataSpots){
+      lines.add(
+        LineChartBarData(
+          spots: dataSpot,
+          color: _getRandomColor(),
+          dotData: FlDotData(show: false)
+        )
+      );
+    }
+    return lines;
+  }
+
+  _getRandomColor(){
+    return Color((math.Random().nextDouble() * 0xFFFFFF).toInt()).withOpacity(1.0);
   }
 }
