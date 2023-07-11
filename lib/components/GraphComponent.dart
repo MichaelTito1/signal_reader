@@ -5,66 +5,75 @@ import 'package:flutter/material.dart';
 import 'package:quiver/iterables.dart';
 import 'dart:math' as math;
 
-class GraphComponent extends StatelessWidget {
+import 'package:syncfusion_flutter_charts/charts.dart';
+
+class GraphComponent extends StatefulWidget {
   final List<num> time;
   final List<List<num>> dataList;
-
   const GraphComponent({super.key, required this.time, required this.dataList});
 
   @override
-  Widget build(BuildContext context) {
-    time.sort();
-    List<List<FlSpot>> dataSpots = [];
-    for(List<dynamic> data in dataList){
-      List<FlSpot> spots = [];
-      for(var pair in zip([time, data])){
-        spots.add(FlSpot(pair[0] + .0, pair[1]+.0));
-      }
-      dataSpots.add(spots);
-    }
+  State<GraphComponent> createState() => _GraphComponentState();
+}
 
-    return SingleChildScrollView(
-      scrollDirection: Axis.horizontal,
-      child: Container(
-        width: _determineChartWidth(),
-        padding: EdgeInsets.all(8),
-        child: LineChart(
-          LineChartData(
-            // minX: time.first,
-            minX: 0,
-            // maxX: time.last,
-            lineBarsData: _getLineChartData(dataSpots)
-          )
-        ),
-      ),
+class _GraphComponentState extends State<GraphComponent> {
+  late List<CustomData> _chartData;
+  late TooltipBehavior _tooltipBehavior;
+  late ZoomPanBehavior _zoomPanBehavior;
+
+  @override
+  void initState() {
+    widget.time.sort();
+    _chartData = _getChartData();
+    _tooltipBehavior = TooltipBehavior(enable: true);
+    _zoomPanBehavior = ZoomPanBehavior(
+      enablePinching: true, 
+      enablePanning: true
     );
+    super.initState();
   }
-  
-  _getLineChartData(List<List<FlSpot>> dataSpots) {
-    List<LineChartBarData> lines = [];
-    for(var dataSpot in dataSpots){
-      lines.add(
-        LineChartBarData(
-          spots: dataSpot,
-          color: _getRandomColor(),
-          dotData: FlDotData(show: false)
+
+  @override
+  Widget build(BuildContext context) {
+    
+    return SfCartesianChart(
+      tooltipBehavior: _tooltipBehavior,
+      zoomPanBehavior: _zoomPanBehavior,
+      series: <ChartSeries>[
+        LineSeries<CustomData, double>(
+          dataSource: _chartData,
+          xValueMapper: (CustomData data, _) => data.time,
+          yValueMapper: (CustomData data, _) => data.data,
         )
-      );
-    }
-    return lines;
+      ],
+    );
+    
   }
 
   _getRandomColor(){
     return Color((math.Random().nextDouble() * 0xFFFFFF).toInt()).withOpacity(1.0);
   }
-  
-  _determineChartWidth() {
-    
-    double log10 = log(time.length) / ln10;
-    int roundedLog = log10.round();
-    num result = pow(10, roundedLog);
 
-    return result.toDouble();
-
+  _getChartData(){
+    final List<CustomData> data = [
+      CustomData(0, 1),
+      CustomData(1, 2),
+      CustomData(2, 6),
+      CustomData(3, 1),
+      CustomData(4, 8),
+      CustomData(5, 7),
+      CustomData(6, 5),
+      CustomData(7, 3),
+      CustomData(8, 4),
+      CustomData(9, 18),
+      CustomData(10, -8),
+    ];
+    return data;
   }
+}
+
+class CustomData{
+  CustomData(this.time, this.data);
+  final double? time;
+  final double? data;
 }

@@ -40,6 +40,7 @@ dependencies:
   firebase_database: ^10.2.3
   fl_chart: ^0.62.0
   quiver: ^3.2.1
+  syncfusion_flutter_charts: ^22.1.37
 
 dev_dependencies:
   flutter_test:
