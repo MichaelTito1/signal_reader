@@ -65,17 +65,6 @@ class _GraphScreenState extends State<GraphScreen> {
       List<num> convertedData = _convertListOfObjects(listOfObj);
       dataList.add(convertedData);
     }
-    // widget.data.forEach((key, value) {
-    //   if(key == 'time' || !widget._selectedOptions.contains(key)){
-    //     return;
-    //   }
-    //   print("key=$key");
-    //   value = value as Map;
-      
-    //   List listOfObj = value[value.keys.elementAt(0)];
-    //   List<num> convertedData = _convertListOfObjects(listOfObj);
-    //   dataList.add(convertedData);
-    // });
     return dataList;
   }
 
