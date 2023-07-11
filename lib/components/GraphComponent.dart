@@ -10,14 +10,15 @@ import 'package:syncfusion_flutter_charts/charts.dart';
 class GraphComponent extends StatefulWidget {
   final List<num> time;
   final List<List<num>> dataList;
-  const GraphComponent({super.key, required this.time, required this.dataList});
+  final List<dynamic> selectedOptions;
+  const GraphComponent({super.key, required this.time, required this.dataList, required this.selectedOptions});
 
   @override
   State<GraphComponent> createState() => _GraphComponentState();
 }
 
 class _GraphComponentState extends State<GraphComponent> {
-  late var _seriesData;
+  late List _seriesData;
   late TooltipBehavior _tooltipBehavior;
   late ZoomPanBehavior _zoomPanBehavior;
 
@@ -34,37 +35,20 @@ class _GraphComponentState extends State<GraphComponent> {
   }
 
   @override
+  void didUpdateWidget(covariant GraphComponent oldWidget) {
+    _seriesData = _getSeriesData();
+    super.didUpdateWidget(oldWidget);
+  }
+
+  @override
   Widget build(BuildContext context) {
-    
+    print('selected_options=${widget.selectedOptions}');
+    print('data_list=${widget.dataList.length}');
+    print('seriesData=${_seriesData.length}');
     return SfCartesianChart(
       tooltipBehavior: _tooltipBehavior,
       zoomPanBehavior: _zoomPanBehavior,
       series: _seriesData
-      // <ChartSeries>[
-      //   LineSeries<CustomData, double>(
-      //     dataSource: [
-      //       CustomData(0, 1),
-      //       CustomData(1, 2),
-      //       CustomData(2, 6),
-      //       CustomData(3, 1),
-      //       CustomData(4, 8),
-      //     ],
-      //     xValueMapper: (CustomData data, _) => data.time,
-      //     yValueMapper: (CustomData data, _) => data.data,
-      //   ),
-      //   LineSeries<CustomData, double>(
-      //     dataSource: [
-      //       CustomData(0, 7),
-      //       CustomData(1, 5),
-      //       CustomData(2, 3),
-      //       CustomData(3, 4),
-      //       CustomData(4, 18),
-      //       CustomData(5, -8)
-      //     ],
-      //     xValueMapper: (CustomData data, _) => data.time,
-      //     yValueMapper: (CustomData data, _) => data.data,
-      //   )
-      // ],
     );
     
   }
