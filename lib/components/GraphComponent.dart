@@ -42,19 +42,11 @@ class _GraphComponentState extends State<GraphComponent> {
 
   @override
   Widget build(BuildContext context) {
-    print('selected_options=${widget.selectedOptions}');
-    print('data_list=${widget.dataList.length}');
-    print('seriesData=${_seriesData.length}');
     return SfCartesianChart(
       tooltipBehavior: _tooltipBehavior,
       zoomPanBehavior: _zoomPanBehavior,
       series: _seriesData
     );
-    
-  }
-
-  _getRandomColor(){
-    return Color((math.Random().nextDouble() * 0xFFFFFF).toInt()).withOpacity(1.0);
   }
 
   List<List<CustomData>> _getChartData(){
