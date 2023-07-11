@@ -45,6 +45,10 @@ class _GraphComponentState extends State<GraphComponent> {
   Widget build(BuildContext context) {
     return SfCartesianChart(
       title: ChartTitle(text: widget.selectedKey),
+      legend: const Legend(
+        isVisible: true,
+        position: LegendPosition.bottom
+      ),
       tooltipBehavior: _tooltipBehavior,
       zoomPanBehavior: _zoomPanBehavior,
       series: _seriesData,
@@ -67,8 +71,14 @@ class _GraphComponentState extends State<GraphComponent> {
   _getSeriesData() {
     List<List<CustomData>> allLinesData = _getChartData();
     List<ChartSeries> seriesData = [];
-    for(var lineData in allLinesData){
+
+    
+    for(var pair in enumerate(allLinesData)){
+      int index=pair.index;
+      var lineData=pair.value;
+
       var series = LineSeries<CustomData, double>(
+        name: widget.selectedOptions.elementAt(index),
         dataSource: lineData,
         xValueMapper: (CustomData data, _) => data.time,
         yValueMapper: (CustomData data, _) => data.data
