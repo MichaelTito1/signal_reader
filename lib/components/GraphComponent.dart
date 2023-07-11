@@ -17,14 +17,14 @@ class GraphComponent extends StatefulWidget {
 }
 
 class _GraphComponentState extends State<GraphComponent> {
-  late List<CustomData> _chartData;
+  late var _seriesData;
   late TooltipBehavior _tooltipBehavior;
   late ZoomPanBehavior _zoomPanBehavior;
 
   @override
   void initState() {
     widget.time.sort();
-    _chartData = _getChartData();
+    _seriesData = _getSeriesData();
     _tooltipBehavior = TooltipBehavior(enable: true);
     _zoomPanBehavior = ZoomPanBehavior(
       enablePinching: true, 
@@ -39,13 +39,32 @@ class _GraphComponentState extends State<GraphComponent> {
     return SfCartesianChart(
       tooltipBehavior: _tooltipBehavior,
       zoomPanBehavior: _zoomPanBehavior,
-      series: <ChartSeries>[
-        LineSeries<CustomData, double>(
-          dataSource: _chartData,
-          xValueMapper: (CustomData data, _) => data.time,
-          yValueMapper: (CustomData data, _) => data.data,
-        )
-      ],
+      series: _seriesData
+      // <ChartSeries>[
+      //   LineSeries<CustomData, double>(
+      //     dataSource: [
+      //       CustomData(0, 1),
+      //       CustomData(1, 2),
+      //       CustomData(2, 6),
+      //       CustomData(3, 1),
+      //       CustomData(4, 8),
+      //     ],
+      //     xValueMapper: (CustomData data, _) => data.time,
+      //     yValueMapper: (CustomData data, _) => data.data,
+      //   ),
+      //   LineSeries<CustomData, double>(
+      //     dataSource: [
+      //       CustomData(0, 7),
+      //       CustomData(1, 5),
+      //       CustomData(2, 3),
+      //       CustomData(3, 4),
+      //       CustomData(4, 18),
+      //       CustomData(5, -8)
+      //     ],
+      //     xValueMapper: (CustomData data, _) => data.time,
+      //     yValueMapper: (CustomData data, _) => data.data,
+      //   )
+      // ],
     );
     
   }
@@ -54,22 +73,32 @@ class _GraphComponentState extends State<GraphComponent> {
     return Color((math.Random().nextDouble() * 0xFFFFFF).toInt()).withOpacity(1.0);
   }
 
-  _getChartData(){
-    final List<CustomData> data = [
-      CustomData(0, 1),
-      CustomData(1, 2),
-      CustomData(2, 6),
-      CustomData(3, 1),
-      CustomData(4, 8),
-      CustomData(5, 7),
-      CustomData(6, 5),
-      CustomData(7, 3),
-      CustomData(8, 4),
-      CustomData(9, 18),
-      CustomData(10, -8),
-    ];
-    return data;
+  List<List<CustomData>> _getChartData(){
+    List<List<CustomData>> allLinesData = [];
+    for (var data in widget.dataList) {
+      List<CustomData> lineData = [];
+      for(var pair in zip([widget.time, data])){
+        lineData.add(CustomData(pair[0]+.0, pair[1]+.0));
+      }
+      allLinesData.add(lineData);
+    }
+    return allLinesData;
   }
+  
+  _getSeriesData() {
+    List<List<CustomData>> allLinesData = _getChartData();
+    List<ChartSeries> seriesData = [];
+    for(var lineData in allLinesData){
+      var series = LineSeries<CustomData, double>(
+        dataSource: lineData,
+        xValueMapper: (CustomData data, _) => data.time,
+        yValueMapper: (CustomData data, _) => data.data
+      );
+      seriesData.add(series);
+    }
+    return seriesData;
+  }
+
 }
 
 class CustomData{
