@@ -44,7 +44,7 @@ class _GraphScreenState extends State<GraphScreen> {
             },
           ),
           // graph component, passing the selected variables
-          GraphComponent(time: timeData, dataList: dataList, selectedOptions: widget._selectedOptions)
+          GraphComponent(selectedKey: widget.selectedKey, time: timeData, dataList: dataList, selectedOptions: widget._selectedOptions)
         ],
       ),
     );

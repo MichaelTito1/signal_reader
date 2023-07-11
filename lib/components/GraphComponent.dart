@@ -8,10 +8,11 @@ import 'dart:math' as math;
 import 'package:syncfusion_flutter_charts/charts.dart';
 
 class GraphComponent extends StatefulWidget {
+  final String selectedKey;
   final List<num> time;
   final List<List<num>> dataList;
   final List<dynamic> selectedOptions;
-  const GraphComponent({super.key, required this.time, required this.dataList, required this.selectedOptions});
+  const GraphComponent({super.key, required this.selectedKey, required this.time, required this.dataList, required this.selectedOptions});
 
   @override
   State<GraphComponent> createState() => _GraphComponentState();
@@ -43,9 +44,11 @@ class _GraphComponentState extends State<GraphComponent> {
   @override
   Widget build(BuildContext context) {
     return SfCartesianChart(
+      title: ChartTitle(text: widget.selectedKey),
       tooltipBehavior: _tooltipBehavior,
       zoomPanBehavior: _zoomPanBehavior,
-      series: _seriesData
+      series: _seriesData,
+      primaryXAxis: CategoryAxis(),
     );
   }
 
