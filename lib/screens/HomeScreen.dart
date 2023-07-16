@@ -28,12 +28,5 @@ class _HomeScreenState extends State<HomeScreen> {
   @override
   Widget build(BuildContext context) {
     return SelectionComponent(selectedKey: "Signal Reader", data: allData);
-    // return Scaffold(
-    //   appBar: AppBar(
-    //     backgroundColor: Colors.blueAccent,
-    //     title: Text("Signal Reader"),
-    //   ),
-    //   body: SelectionComponent(data : allData),
-    // );
   }
 }
