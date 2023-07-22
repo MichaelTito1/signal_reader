@@ -11,22 +11,36 @@ class HomeScreen extends StatefulWidget {
 
 class _HomeScreenState extends State<HomeScreen> {
   var db = DatabaseService();
-  Map<dynamic,dynamic> allData = {};
-  
+  Map<dynamic, dynamic> allData = {};
+  bool loading = true;
+
   @override
   void initState() {
     // TODO: implement initState
     super.initState();
-    
+
     db.getData().then((value) {
       setState(() {
         allData = value;
+        loading = false;
       });
     });
   }
 
   @override
   Widget build(BuildContext context) {
-    return SelectionComponent(selectedKey: "Signal Reader", data: allData);
+    return loading
+        ? Scaffold(
+            body: const Center(
+                child: Column(
+              mainAxisAlignment: MainAxisAlignment.center,
+              crossAxisAlignment: CrossAxisAlignment.center,
+              children: [
+                CircularProgressIndicator(),
+                Text("Please wait while we fetch data from the server...", style: TextStyle(fontWeight: FontWeight.bold)),
+              ],
+            )),
+          )
+        : SelectionComponent(selectedKey: "Signal Reader", data: allData);
   }
 }
