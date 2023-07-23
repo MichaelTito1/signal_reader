@@ -23,7 +23,7 @@ class LoadingScreen extends StatelessWidget {
           crossAxisAlignment: CrossAxisAlignment.center,
           children: [
             Text(
-              "\nBenha University\nBenha Faculty of Engineering\nElectrical Engineering Department",
+              "\n\n\nBenha University\nBenha Faculty of Engineering\nElectrical Engineering Department",
               style: TextStyle(
                   fontSize: 20,
                   fontWeight: FontWeight.bold,
