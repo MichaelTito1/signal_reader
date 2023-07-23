@@ -30,7 +30,8 @@ class _GraphComponentState extends State<GraphComponent> {
     _tooltipBehavior = TooltipBehavior(enable: true);
     _zoomPanBehavior = ZoomPanBehavior(
       enablePinching: true, 
-      enablePanning: true
+      enablePanning: true,
+      enableDoubleTapZooming: true
     );
     super.initState();
   }
