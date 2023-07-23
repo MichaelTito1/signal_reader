@@ -32,6 +32,6 @@ class _HomeScreenState extends State<HomeScreen> {
   Widget build(BuildContext context) {
     return loading
         ? LoadingScreen()
-        : SelectionComponent(selectedKey: "Signal Reader", data: allData);
+        : SelectionComponent(selectedKey: "Real-Time Monitoring", data: allData);
   }
 }
