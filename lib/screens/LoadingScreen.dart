@@ -40,6 +40,15 @@ class LoadingScreen extends StatelessWidget {
               textAlign: TextAlign.center,
             ),
             Spacer(),
+            Text(
+              "Designed By:\nKirolos Ragaie\nSaleh Hesham",
+              style: TextStyle(
+                  fontSize: 20,
+                  fontWeight: FontWeight.bold,
+                  color: Colors.white),
+              textAlign: TextAlign.center,
+            ),
+            Spacer(),
             Align(
               alignment: Alignment.bottomCenter,
               child: LoadingComponent(),
