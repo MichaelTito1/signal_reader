@@ -1,5 +1,6 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.example.signal_reader">
+    <uses-permission android:name="android.permission.INTERNET"/>
    <application
         android:label="Real-Time Monitoring"
         android:name="${applicationName}"
