@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:firebase_core/firebase_core.dart';
+import 'package:signal_reader/screens/LoadingScreen.dart';
 import 'firebase_options.dart';
 
 import 'screens/GraphScreen.dart';

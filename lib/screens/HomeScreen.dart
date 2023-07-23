@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:signal_reader/screens/SelectionScreen.dart';
 import '../services/DatabaseService.dart';
+import 'LoadingScreen.dart';
 
 class HomeScreen extends StatefulWidget {
   const HomeScreen({super.key});
@@ -30,17 +31,7 @@ class _HomeScreenState extends State<HomeScreen> {
   @override
   Widget build(BuildContext context) {
     return loading
-        ? Scaffold(
-            body: const Center(
-                child: Column(
-              mainAxisAlignment: MainAxisAlignment.center,
-              crossAxisAlignment: CrossAxisAlignment.center,
-              children: [
-                CircularProgressIndicator(),
-                Text("Please wait while we fetch data from the server...", style: TextStyle(fontWeight: FontWeight.bold)),
-              ],
-            )),
-          )
+        ? LoadingScreen()
         : SelectionComponent(selectedKey: "Signal Reader", data: allData);
   }
 }
